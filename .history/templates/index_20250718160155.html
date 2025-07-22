@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>8 Input Options Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+
+    .output-box {
+      background-color: #e6f7ff;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      color: #333;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Future of vehicles, estimation of Prices</h2>
+    <!--for year-->
+
+    <label for="input1">Which year car?</label>
+<input type="number" id="input1" name="input1" min="1982" max="2015" placeholder="Enter year between 2000–2025" required>
+
+
+    <!--for year-->
+    
+    <label for="company">Select Company</label>
+    <select id="company"  onchange=loadModels()>
+      <option>Select a Company</option>
+      <option>ford</option>
+      <option>chevrolet</option>
+      <option>nissan</option>
+ 
+      <option>toyota</option>
+      <option>dodge</option>
+      <option value="honda">honda</option>
+ 
+      <option>hyundai</option>
+      <option>bmw</option>
+      <option>kia</option>
+ 
+      <option>chrysler</option>
+      <option>mercedes-benz</option>
+      <option>jeep</option>
+ 
+      <option>infiniti</option>
+      <option>volkswagen</option>
+      <option>lexus</option>
+   
+    
+      <option>gmc</option>
+      <option>mazda</option>
+      <option>cadillac</option>
+    
+      <option>acura</option>
+      <option>audi</option>
+      <option>lincoln</option>
+    
+      <option>buick</option>
+      <option>subaru</option>
+      <option>ram</option>
+    
+      <option>pontiac</option>
+      <option>mitsubishi</option>
+      <option>volvo</option>
+    
+      <option>mini</option>
+      <option>saturn</option>
+      <option>mercury</option>
+    
+
+
+      <option>land rover</option>
+      <option>scion</option>
+      <option>jaguar</option>
+      <option>porsche</option>
+      <option>suzuki</option>
+      <option>other</option>
+ 
+
+    </select>
+
+
+
+
+
+     <!-- Model dropdown -->
+  <select id="model">
+    <option value="">Select Model</option>
+  </select>
+
+
+  
+
+    <label for="input3">Select Animal</label>
+    <select id="input3">
+      <option>Select an Animal</option>
+      <option>Dog</option>
+      <option>Cat</option>
+      <option>Lion</option>
+    </select>
+
+    <label for="input4">Select Fruit</label>
+    <select id="input4">
+      <option>Select a Fruit</option>
+      <option>Apple</option>
+      <option>Mango</option>
+      <option>Banana</option>
+    </select>
+
+    <label for="input5">Select Country</label>
+    <select id="input5">
+      <option>Select a Country</option>
+      <option>India</option>
+      <option>USA</option>
+      <option>Japan</option>
+    </select>
+
+    <label for="input6">Select Language</label>
+    <select id="input6">
+      <option>Select a Language</option>
+      <option>Hindi</option>
+      <option>English</option>
+      <option>French</option>
+    </select>
+
+    <label for="input7">Select Vehicle</label>
+    <select id="input7">
+      <option>Select a Vehicle</option>
+      <option>Car</option>
+      <option>Bike</option>
+      <option>Bus</option>
+    </select>
+
+    <label for="input8">Select Season</label>
+    <select id="input8">
+      <option>Select a Season</option>
+      <option>Winter</option>
+      <option>Summer</option>
+      <option>Rainy</option>
+    </select>
+
+    <div class="output-box">
+      💡 Result will be shown here (JavaScript required for real-time output). <br><br>
+      👉 Sirf HTML + CSS me data process nahi hota, but design ready hai. JS add karne par result yahan dikhega.
+    </div>
+  </div>
+
+
+
+
+
+
+  <script>
+    function loadModels() {
+      const company = document.getElementById('company').value.toLowerCase();
+     
+
+      // Flask se model list laane ke liye fetch call
+      fetch('/get_models?company=' + company)
+        .then(response => response.json())
+        .then(data => {
+          const modelSelect = document.getElementById('model');
+          console.log('ram')
+          modelSelect.innerHTML = '';
+
+          // Models add karo
+          data.models.forEach(function(model) {
+            const option = document.createElement('option');
+            option.value = model;
+            option.text = model;
+            modelSelect.appendChild(option);
+          });
+        });
+    }
+
+
+
+  </script>
+</body>
+
+</html>

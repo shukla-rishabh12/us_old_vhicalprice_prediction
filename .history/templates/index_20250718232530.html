@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>8 Input Options Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 40px;
+    }
+    
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+
+    .output-box {
+      background-color: #e6f7ff;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      color: #333;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Future of vehicles, estimation of Prices</h2>
+    <!--for year-->
+
+
+
+<form action="/predict" method="POST">
+
+
+
+
+
+
+    <label for="input1">Which year car?</label>
+<input type="number" id="input1" name="year" min="1982" max="2015" placeholder="Enter year between 2000–2025" required>
+
+
+    <!--for year-->
+    
+    <label for="company">Select Company</label>
+    <select id="company" name="company" onchange=loadModels()>
+      <option>Select a Company</option>
+      <option>ford</option>
+      <option>chevrolet</option>
+      <option>nissan</option>
+ 
+      <option>toyota</option>
+      <option>dodge</option>
+      <option value="honda">honda</option>
+ 
+      <option>hyundai</option>
+      <option>bmw</option>
+      <option>kia</option>
+ 
+      <option>chrysler</option>
+      <option>mercedes-benz</option>
+      <option>jeep</option>
+ 
+      <option>infiniti</option>
+      <option>volkswagen</option>
+      <option>lexus</option>
+   
+    
+      <option>gmc</option>
+      <option>mazda</option>
+      <option>cadillac</option>
+    
+      <option>acura</option>
+      <option>audi</option>
+      <option>lincoln</option>
+    
+      <option>buick</option>
+      <option>subaru</option>
+      <option>ram</option>
+    
+      <option>pontiac</option>
+      <option>mitsubishi</option>
+      <option>volvo</option>
+    
+      <option>mini</option>
+      <option>saturn</option>
+      <option>mercury</option>
+    
+
+
+      <option>land rover</option>
+      <option>scion</option>
+      <option>jaguar</option>
+      <option>porsche</option>
+      <option>suzuki</option>
+      <option>other</option>
+ 
+
+    </select>
+
+
+
+
+
+     <!-- Model dropdown -->
+  <select id="model" name="modl">
+    <option value="">Select Model</option>
+  </select>
+
+    <!-- body dropdown -->
+  
+
+    <label for="input3" >Select car-body</label>
+    <select id="input3" name="body">
+      <option>suv</option>
+      <option>sedan</option>
+      <option>convertible</option>
+      <option>coupe</option>
+
+
+
+      
+      <option>wagon</option>
+      <option>hatchback</option>
+      <option>crew cab</option>
+      <option>g coupe</option>
+
+      <option>g sedan</option>
+      <option>minivan</option>
+      <option>van</option>
+      <option>double cab</option>
+
+
+
+      <option>crewmax cab</option>
+      <option>king cab</option>
+      <option>supercrew</option>
+      <option>extended cab</option>
+
+
+
+      <option>e-series van</option>
+      <option>supercab</option>
+      <option>regular cab</option>
+      <option>quad cab</option>
+
+
+
+      <option>other</option>
+
+    </select>
+
+
+ <!-- condition dropdown -->
+
+    <label for="input4">Expected condition(0 to 5)</label>
+   <input type="number" id="input4" name="condition" min="1" max="5" step="0.1">
+
+
+
+   
+ <!-- odometer dropdown -->
+    <label for="input5">Odometer reading (1 to 1000000)</label>
+    <input type="number" id="input5" name="odometer" min="1" max="1000000" step="100">
+
+
+
+
+
+
+     <input type="submit" value="Predict" />
+
+
+
+ <!-- mmr dropdown -->
+<div class="prediction">
+        <h3>{{ prediction_text }}</h3>
+      </div>
+   
+
+    <div class="output-box">
+      💡This model only makes predictions, with an R² score and accuracy of 93%, but it does not provide the exact values. Just remember that."
+
+
+       
+    </div>
+  </div>
+
+</form>
+
+
+
+
+  <script>
+    function loadModels() {
+      const company = document.getElementById('company').value.toLowerCase();
+     
+
+      // Flask se model list laane ke liye fetch call
+      fetch('/get_models?company=' + company)
+        .then(response => response.json())
+        .then(data => {
+          const modelSelect = document.getElementById('model');
+          
+          modelSelect.innerHTML = '';
+
+          // Models add karo
+          data.models.forEach(function(model) {
+            const option = document.createElement('option');
+            option.value = model;
+            option.text = model;
+            modelSelect.appendChild(option);
+          });
+        });
+    }
+
+console.log('ram')
+
+  </script>
+</body>
+
+</html>
